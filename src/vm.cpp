@@ -430,8 +430,16 @@ void VM::run(bool DEBUG)
     else if (instr.opcode() == OpCode::GETF) {
       VMValue x = frame->operand_stack.top();
       frame->operand_stack.pop();
+      ensure_not_null(*frame, x);
       int oid = get<int>(x);
-      frame->operand_stack.push(struct_heap[oid][get<string>(instr.operand().value())]);
+      if(struct_heap[oid].empty())
+      {
+        error("struct does not exist (in main at 1: GETF(a))");
+      }
+      else
+      {
+        frame->operand_stack.push(struct_heap[oid][get<string>(instr.operand().value())]);
+      }
     }
 
     else if (instr.opcode() == OpCode::ALLOCA) {
@@ -454,7 +462,11 @@ void VM::run(bool DEBUG)
       VMValue z = frame->operand_stack.top();
       ensure_not_null(*frame, z);
       frame->operand_stack.pop();
-      if(get<int>(y) < array_heap[get<int>(z)].size())
+      if(array_heap[get<int>(z)].empty())
+      {
+        error("array does not exist (in main at 5: SETI())");
+      }
+      else if(get<int>(y) < array_heap[get<int>(z)].size())
       {
         if(get<int>(y) < 0)
         {
@@ -475,7 +487,11 @@ void VM::run(bool DEBUG)
       VMValue y = frame->operand_stack.top();
       ensure_not_null(*frame, y);
       frame->operand_stack.pop();
-      if(get<int>(x) < array_heap[get<int>(y)].size())
+      if(array_heap[get<int>(y)].empty())
+      {
+        error("array does not exist (in main at 4: GETI())");
+      }
+      else if(get<int>(x) < array_heap[get<int>(y)].size())
       {
         if(get<int>(y) < 0)
         {
@@ -489,6 +505,19 @@ void VM::run(bool DEBUG)
       }
     }
     
+    else if (instr.opcode() == OpCode::DELAR) {
+      VMValue x = frame->operand_stack.top();
+      ensure_not_null(*frame, x);
+      frame->operand_stack.pop();
+      array_heap.erase (get<int>(x));
+    }
+
+    else if (instr.opcode() == OpCode::DELS) {
+      VMValue x = frame->operand_stack.top();
+      ensure_not_null(*frame, x);
+      frame->operand_stack.pop();
+      struct_heap.erase (get<int>(x));
+    }
     //----------------------------------------------------------------------
     // special
     //----------------------------------------------------------------------

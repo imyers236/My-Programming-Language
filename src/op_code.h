@@ -62,6 +62,8 @@ enum class OpCode {
   GETF,         // [operand] pop x, push value of obj(x).v 
   SETI,         // pop x, y, and z, set array obj(z)[y] = x
   GETI,         // pop x and y, push array obj(y)[x] value
+  DELAR,           // pop x, delete x from array heap
+  DELS,           // pop x, delete x from struct heap
     
   // special
   DUP,          // pop x, push x, push x

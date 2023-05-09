@@ -248,8 +248,10 @@ Token Lexer::next_token()
       return Token(TokenType::STRUCT, lexeme, line, start_word);
     else if(lexeme.compare("array") == 0)
       return Token(TokenType::ARRAY, lexeme, line, start_word);
-    else if(lexeme.compare("delete") == 0)
-      return Token(TokenType::DELETE, lexeme, line, start_word);
+    else if(lexeme.compare("delete_struct") == 0)
+      return Token(TokenType::DELETESTRUCT, lexeme, line, start_word);
+    else if(lexeme.compare("delete_array") == 0)
+      return Token(TokenType::DELETEARRAY, lexeme, line, start_word);
     else if(lexeme.compare("for") == 0)
       return Token(TokenType::FOR, lexeme, line, start_word);
     else if(lexeme.compare("while") == 0)

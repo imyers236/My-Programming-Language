@@ -91,9 +91,16 @@ void CodeGenerator::visit(ReturnStmt& s)
   curr_frame.instructions.push_back(VMInstr::RET());
 }
 
-void CodeGenerator::visit(DeleteStmt& d)
+void CodeGenerator::visit(DeleteStructStmt& d)
 {
-  
+  d.expr.accept(*this);
+  curr_frame.instructions.push_back(VMInstr::DELS());
+}
+
+void CodeGenerator::visit(DeleteArrayStmt& d)
+{
+  d.expr.accept(*this);
+  curr_frame.instructions.push_back(VMInstr::DELAR());
 }
 
 

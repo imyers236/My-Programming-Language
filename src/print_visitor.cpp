@@ -109,9 +109,15 @@ void PrintVisitor::visit(ReturnStmt& s)
   s.expr.accept(*this);
 }
 
-void PrintVisitor::visit(DeleteStmt& s)
+void PrintVisitor::visit(DeleteStructStmt& s)
 {
-  out << "delete ";
+  out << "delete_struct ";
+  s.expr.accept(*this);
+}
+
+void PrintVisitor::visit(DeleteArrayStmt& s)
+{
+  out << "delete_array ";
   s.expr.accept(*this);
 }
 

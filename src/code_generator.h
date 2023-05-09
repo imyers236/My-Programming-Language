@@ -35,7 +35,8 @@ public:
   void visit(SimpleRValue& v);
   void visit(NewRValue& v);
   void visit(VarRValue& v);
-  void visit(DeleteStmt& s);    
+  void visit(DeleteStructStmt& d);    
+  void visit(DeleteArrayStmt& d);    
 
 private:
 

@@ -236,11 +236,17 @@ void ASTParser::stmt(std::vector<std::shared_ptr<Stmt>>& s)
     ret_stmt(r);
     s.push_back(std::make_shared<ReturnStmt>(r));
   }
-  else if(match(TokenType::DELETE))
+  else if(match(TokenType::DELETESTRUCT))
   {
-    DeleteStmt d;
-    delete_stmt(d);
-    s.push_back(std::make_shared<DeleteStmt>(d));
+    DeleteStructStmt d;
+    delete_struct_stmt(d);
+    s.push_back(std::make_shared<DeleteStructStmt>(d));
+  }
+  else if(match(TokenType::DELETEARRAY))
+  {
+    DeleteArrayStmt d;
+    delete_array_stmt(d);
+    s.push_back(std::make_shared<DeleteArrayStmt>(d));
   }
   else
     error("Expecting stmnt");
@@ -267,9 +273,15 @@ void ASTParser::assign_stmt(AssignStmt& a)
   expr(a.expr);
 }
 
-void ASTParser::delete_stmt(DeleteStmt& d)
+void ASTParser::delete_struct_stmt(DeleteStructStmt& d)
 {
-  eat(TokenType::DELETE, "Expecting ASSIGN");
+  eat(TokenType::DELETESTRUCT, "Expecting DELETESTRUCT");
+  expr(d.expr);
+}
+
+void ASTParser::delete_array_stmt(DeleteArrayStmt& d)
+{
+  eat(TokenType::DELETEARRAY, "Expecting DELETEARRAY");
   expr(d.expr);
 }
 

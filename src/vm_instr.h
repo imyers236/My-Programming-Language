@@ -63,7 +63,9 @@ public:
   static VMInstr SETF(const std::string& field);
   static VMInstr GETF(const std::string& field);
   static VMInstr SETI();
-  static VMInstr GETI();  
+  static VMInstr GETI(); 
+  static VMInstr DELS(); 
+  static VMInstr DELAR(); 
   static VMInstr DUP();
   static VMInstr NOP();
 

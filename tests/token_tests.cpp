@@ -13,16 +13,13 @@
 TEST(BasicTokenTest, TokenCreation) {
   Token token1(TokenType::INT_TYPE, "int", 0, 0);
   Token token2(TokenType::STRING_TYPE, "string", 1, 1);
-  Token token3(TokenType::DELETE, "delete", 2, 2);
 }
 
 TEST(BasicTokenTest, TypeGivenIsReturned) {
   Token token1(TokenType::INT_TYPE, "int", 0, 0);
   Token token2(TokenType::STRING_TYPE, "string", 0, 0);
-  Token token3(TokenType::DELETE, "delete", 0, 0);
   ASSERT_EQ(TokenType::INT_TYPE, token1.type());
   ASSERT_EQ(TokenType::STRING_TYPE, token2.type());
-  ASSERT_EQ(TokenType::DELETE, token3.type());
 }
 
 TEST(BasicTokenTest, LexemeGivenIsReturned) {

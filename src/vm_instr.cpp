@@ -285,6 +285,16 @@ VMInstr VMInstr::NOP()
   return VMInstr(OpCode::NOP);      
 }
 
+VMInstr VMInstr::DELAR()
+{
+  return VMInstr(OpCode::DELAR);      
+}
+
+VMInstr VMInstr::DELS()
+{
+  return VMInstr(OpCode::DELS);      
+}
+
 
 string to_string(const VMValue& val) {
   if (holds_alternative<int>(val))
@@ -324,7 +334,8 @@ std::string to_string(const VMInstr& instr)
     {OpCode::ADDF, "ADDF"}, {OpCode::GETF, "GETF"},
     {OpCode::SETF, "SETF"}, {OpCode::GETI, "GETI"},
     {OpCode::SETI, "SETI"}, {OpCode::DUP, "DUP"},
-    {OpCode::NOP, "NOP"}
+    {OpCode::NOP, "NOP"}, {OpCode::DELAR, "DELAR"},
+    {OpCode::DELS, "DELS"}
   };
   string vstr = "";
   if (instr.operand().has_value()) {

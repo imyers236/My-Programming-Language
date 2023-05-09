@@ -213,12 +213,22 @@ void SemanticChecker::visit(ReturnStmt& s)
   }
 }
 
-void SemanticChecker::visit(DeleteStmt& s)
+void SemanticChecker::visit(DeleteStructStmt& s)
 {
   s.expr.accept(*this);
-  if(!(struct_defs.contains(curr_type.type_name)) && !(curr_type.is_array))
+  if(!struct_defs.contains(curr_type.type_name))
   {
-    error("Invalid type " + curr_type.type_name + " when expected struct or array", s.expr.first_token());
+    error("Invalid type " + curr_type.type_name + " when expected struct", s.expr.first_token());
+  }
+  
+}
+
+void SemanticChecker::visit(DeleteArrayStmt& s)
+{
+  s.expr.accept(*this);
+  if(!curr_type.is_array)
+  {
+    error("Invalid type " + curr_type.type_name + " when expected array", s.expr.first_token());
   }
   
 }
