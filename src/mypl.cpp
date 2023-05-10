@@ -12,6 +12,7 @@
 #include "ast_parser.h"
 #include "print_visitor.h"
 #include "semantic_checker.h"
+#include "code_generator.h"
 
 using namespace std;
 void usage();// shows the message for help
@@ -185,12 +186,36 @@ int main(int argc, char* argv[])
 			cout << "ERROR:  Unable to open file '" << argv[2] << "'" << endl;
 		}
 		else
-			ir(input);
+			try {
+					Lexer lexer(*input);
+					ASTParser parser(lexer);
+					Program p = parser.parse();
+					SemanticChecker t;
+					p.accept(t);
+					VM vm;
+					CodeGenerator g(vm);
+					p.accept(g);
+					cout << to_string(vm) << endl;
+				} catch (MyPLException& ex) {
+					cerr << ex.what() << endl;
+				}
 	}	
 	else
 	{
 		input = &cin;
-		ir(input);
+		try {
+			Lexer lexer(*input);
+			ASTParser parser(lexer);
+			Program p = parser.parse();
+			SemanticChecker t;
+			p.accept(t);
+			VM vm;
+			CodeGenerator g(vm);
+			p.accept(g);
+			cout << to_string(vm) << endl;
+			} catch (MyPLException& ex) {
+			cerr << ex.what() << endl;
+			}
 	}
   }
   else
@@ -203,12 +228,36 @@ int main(int argc, char* argv[])
 			cout << "ERROR:  Unable to open file '" << argv[1] << "'" << endl;
 		}
 		else
-			df(input);
+			try {
+				Lexer lexer(*input);
+				ASTParser parser(lexer);
+				Program p = parser.parse();
+				SemanticChecker t;
+				p.accept(t);
+				VM vm;
+				CodeGenerator g(vm);
+				p.accept(g);
+				vm.run();
+				} catch (MyPLException& ex) {
+				cerr << ex.what() << endl;
+				}
 	}	
 	else
 	{
 		input = &cin;
-		df(input);
+		try {
+			Lexer lexer(*input);
+			ASTParser parser(lexer);
+			Program p = parser.parse();
+			SemanticChecker t;
+			p.accept(t);
+			VM vm;
+			CodeGenerator g(vm);
+			p.accept(g);
+			vm.run();
+			} catch (MyPLException& ex) {
+			cerr << ex.what() << endl;
+			}
 	}
   }
   if(input != &cin)
