@@ -509,7 +509,8 @@ void VM::run(bool DEBUG)
       VMValue x = frame->operand_stack.top();
       ensure_not_null(*frame, x);
       frame->operand_stack.pop();
-      array_heap.erase (get<int>(x));
+      array_heap.erase(get<int>(x));
+      //delete &array_heap[get<int>(x)];
     }
 
     else if (instr.opcode() == OpCode::DELS) {
@@ -517,6 +518,7 @@ void VM::run(bool DEBUG)
       ensure_not_null(*frame, x);
       frame->operand_stack.pop();
       struct_heap.erase(get<int>(x));
+      //delete &struct_heap[get<int>(x)];
       /*
       std::unordered_map<int, std::unordered_map<std::string, VMValue>> temp;
       for(int i = 2023; i < next_obj_id; i++)

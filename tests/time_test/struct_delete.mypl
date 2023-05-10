@@ -3,15 +3,20 @@
 #------------------------------------
 struct S 
 {
-    int x
+    array double x
 }
 
 void main()
 {
-    int count = 100000 #2147483648
-    for(int i = 0; i < count; i = i + 1)
+    
+    while(true)
     {
         S s = new S
-        delete_struct s
+        s.x = new double[50000]
+        #delete_struct s
     }
+    
 }
+
+
+
