@@ -8,11 +8,10 @@ struct S
 
 void main()
 {
-    int count = 50000000
+    int count = 100000 #2147483648
     for(int i = 0; i < count; i = i + 1)
     {
         S s = new S
-        #delete_struct s
+        delete_struct s
     }
-    int num = 6 * 5
 }
