@@ -510,7 +510,6 @@ void VM::run(bool DEBUG)
       ensure_not_null(*frame, x);
       frame->operand_stack.pop();
       array_heap.erase(get<int>(x));
-      //delete &array_heap[get<int>(x)];
     }
 
     else if (instr.opcode() == OpCode::DELS) {
@@ -518,26 +517,6 @@ void VM::run(bool DEBUG)
       ensure_not_null(*frame, x);
       frame->operand_stack.pop();
       struct_heap.erase(get<int>(x));
-      //delete &struct_heap[get<int>(x)];
-      /*
-      std::unordered_map<int, std::unordered_map<std::string, VMValue>> temp;
-      for(int i = 2023; i < next_obj_id; i++)
-      {
-        if(!struct_heap[i].empty())
-        {
-          temp[i] = struct_heap[i];
-        }
-      }
-      struct_heap = temp;
-      */
-      //int y = struct_heap.size();
-      //auto itr = struct_heap[get<int>(x)];
-      //itr.clear();
-      //struct_heap.erase(get<int>(x));
-      //int z = struct_heap.size();
-      //struct_heap.rehash(z);
-      //error("size before: " + to_string(y) + " size after: " + to_string(z));
-      //struct_heap.free(get<int>(x));
     }
     //----------------------------------------------------------------------
     // special

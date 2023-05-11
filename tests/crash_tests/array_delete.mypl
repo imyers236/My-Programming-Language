@@ -1,0 +1,27 @@
+#------------------------------------
+# Checks the how many uses it takes to crash with and with out delete operator
+#------------------------------------
+
+string make_str(int n)
+{
+    string str = " "
+    for(int i = 0; i < n; i = i + 1)
+    {
+        str = concat(str, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+    }
+    return str
+}
+
+void main()
+{
+    int c = 0
+    while(true)
+    {
+        array string str = new string[10]
+        str[0] = make_str(100)
+        delete_array str
+        print(c)
+        print('\n')
+        c = c + 1
+    }
+}

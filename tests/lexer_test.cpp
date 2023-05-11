@@ -358,7 +358,7 @@ TEST(BasicLexerTest, FunctionReservedWords) {
 }
 
 TEST(BasicLexerTest, ComplexTypeReservedWords) {
-  stringstream in("struct array delete");
+  stringstream in("struct array ");
   Lexer lexer(in);
   Token t = lexer.next_token();
   ASSERT_EQ(TokenType::STRUCT, t.type());

@@ -91,12 +91,22 @@ void CodeGenerator::visit(ReturnStmt& s)
   curr_frame.instructions.push_back(VMInstr::RET());
 }
 
+/**
+ * This function generates a VM instruction to delete a struct object.
+ * 
+ * @param d The parameter "d" is a reference to a DeleteStructStmt object.
+ */
 void CodeGenerator::visit(DeleteStructStmt& d)
 {
   d.expr.accept(*this);
   curr_frame.instructions.push_back(VMInstr::DELS());
 }
 
+/**
+ * This function generates virtual machine instructions for deleting an array.
+ * 
+ * @param d The parameter "d" is a reference to a DeleteArrayStmt object.
+ */
 void CodeGenerator::visit(DeleteArrayStmt& d)
 {
   d.expr.accept(*this);

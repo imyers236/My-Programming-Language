@@ -1,0 +1,35 @@
+#------------------------------------
+# Checks the how many uses it takes to crash with and with out delete operator
+#------------------------------------
+struct S 
+{
+    string str
+}
+
+string make_str(int n)
+{
+    string str = " "
+    for(int i = 0; i < n; i = i + 1)
+    {
+        str = concat(str, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+    }
+    return str
+}
+
+void main()
+{
+    int c = 0
+    while(true)
+    {
+        S s = new S
+        s.str = make_str(100)
+        delete_struct s
+        print(c)
+        print('\n')
+        c = c + 1
+    }
+    
+}
+
+
+
